@@ -52,6 +52,7 @@ main{
     height: 80px;
     border-radius: 50%;
     font-size: 2.4em;
+    cursor: pointer;
 }
 .lado{
     background-color: rgb(245, 147, 27);

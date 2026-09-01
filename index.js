@@ -174,8 +174,6 @@ function clicar(event) {
         else{
             valorfinal = valorprimer
         }
-        
-        console.log(conta)
         conta = String(numeros[0])
         conta = conta.replaceAll('.', ','); 
     }
@@ -201,6 +199,9 @@ function ajustarFonte() {
 
     if (conta.length > 20) {
         tamanho = 1.7
+    }
+    if (conta.length > 28) {
+        tamanho = 1.5
     }
 
     text.style.fontSize = tamanho + 'em'
