@@ -54,7 +54,9 @@ function clicar(event) {
 
     else if (valor === '=') {
         let negativo = false
-
+        if (!'0123456789'.includes(conta.at(-1))) { 
+            return conta; 
+        }
         if (conta[0] === '-') {
             negativo = true
             conta = conta.slice(1)
@@ -85,6 +87,10 @@ function clicar(event) {
                 else{
                     numeroAtual += conta[i]
                 }
+            }
+            else if(conta[i]===','){
+                numeroAtual +='.'
+
             }   
 
             else if('+-*/'.includes(conta[i]) && '+-*/'.includes(conta[i-1])){
@@ -168,8 +174,10 @@ function clicar(event) {
         else{
             valorfinal = valorprimer
         }
-
+        
+        console.log(conta)
         conta = String(numeros[0])
+        conta = conta.replaceAll('.', ','); 
     }
 
     text.value = conta
