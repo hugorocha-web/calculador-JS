@@ -32,7 +32,8 @@ function clicar(event) {
         conta = '0'
         ajustarFonte()
         return
-}
+    }
+
     else if (valor === ','){
         let numeroAtual = conta.split(/[+\-*/]/).at(-1)
         if(!numeroAtual.includes(",")){
@@ -40,8 +41,8 @@ function clicar(event) {
         }
         
     }
+
     else if (valor === 'delete') {
-        console.log(conta.length)
         if(conta.length === 1){
             conta = '0'
         }
@@ -58,128 +59,123 @@ function clicar(event) {
             negativo = true
             conta = conta.slice(1)
         }
-        let listconta = conta.split('')
-        let operadores = listconta.filter(function(letra, p) {
-        return '+-*/'.includes(letra) && listconta[p-1]!= '+' && listconta[p-1]!= '-' && listconta[p-1]!= '*' && listconta[p-1]!= '/'
 
+        let listconta = conta.split('')
+
+        let operadores = listconta.filter(function(letra, p) {
+            return '+-*/'.includes(letra) &&
+                listconta[p-1] != '+' &&
+                listconta[p-1] != '-' &&
+                listconta[p-1] != '*' &&
+                listconta[p-1] != '/'
         })
+
         let cortes = []
         let numeroAtual = ''
 
         for (let i = 0; i < conta.length; i++) {
+
             if('0123456789'.includes(conta[i])){
+
                 if(i+1 == conta.length){
-                numeroAtual+=conta[i]
-                cortes.push(numeroAtual)
-                numeroAtual=''
+                    numeroAtual += conta[i]
+                    cortes.push(numeroAtual)
+                    numeroAtual=''
                 }   
                 else{
-                numeroAtual+=conta[i]
+                    numeroAtual += conta[i]
                 }
             }   
+
             else if('+-*/'.includes(conta[i]) && '+-*/'.includes(conta[i-1])){
-                numeroAtual+=conta[i]
+                numeroAtual += conta[i]
             }
+
             else if ('+-*/'.includes(conta[i])){
                 cortes.push(numeroAtual)
                 numeroAtual=''
             }
-            
-    
-        }   
-        console.log(cortes, 'aqui cara')
-        console.log(operadores,'e, cima' )
+        }
+
         let numeros = cortes.map((numero)=>{
-            
             return Number(numero)
         })
-        if (negativo) {
-                numeros[0] *= -1
-            }
-        console.log(numeros)
-        let valorprimer;
-        if(operadores.includes('*') || operadores.includes('/')){
-            for (let i = 0; i < operadores.length; i++) {
-                console.log(i, operadores[i])
 
-                
+        if (negativo) {
+            numeros[0] *= -1
+        }
+
+        let valorprimer;
+
+        if(operadores.includes('*') || operadores.includes('/')){
+
+            for (let i = 0; i < operadores.length; i++) {
+
                 if (operadores[i] === '*') {
-                    
                     numeros.splice(i, 2, numeros[i] * numeros[i+1])
                     operadores.splice(i, 1)
-                    i --
-                    
-                    
+                    i--
                 }
 
                 else if (operadores[i] === '/') {
                     numeros.splice(i, 2, numeros[i] / numeros[i+1])
                     operadores.splice(i, 1)
                     i--
-
-
                 }
-                else if(operadores[i]==='+' || operadores[i]==='-'){
-                    valorprimer= numeros[i]
-                    
+
+                else if(operadores[i] === '+' || operadores[i] === '-'){
+                    valorprimer = numeros[i]
                 }
-                console.log(numeros)
-}           valorprimer = numeros
+            }
+
+            valorprimer = numeros
         }
+
         else{
             valorprimer = numeros
         }
-        console.log(numeros)
+
         operadores = operadores.filter((operador) => {
-
             return operador.includes('-') || operador.includes('+')
-
-
         })
-        console.log(valorprimer, 'aq')
-        console.log(numeros)
-        let valorfinal;
-        if(operadores.includes('+') || operadores.includes('-')){
-            for (let i = 0; i < operadores.length; i++) {
-                console.log(i, operadores[i])
 
-                
+        let valorfinal;
+
+        if(operadores.includes('+') || operadores.includes('-')){
+
+            for (let i = 0; i < operadores.length; i++) {
+
                 if (operadores[i] === '+') {
-                    
                     numeros.splice(i, 2, numeros[i] + numeros[i+1])
                     operadores.splice(i, 1)
-                    i --
-                    
-                    
+                    i--
                 }
 
                 else if (operadores[i] === '-') {
                     numeros.splice(i, 2, numeros[i] - numeros[i+1])
                     operadores.splice(i, 1)
                     i--
-
-
                 }
+
                 else{
                     return
                 }
             }
+
             valorfinal = numeros
         }
+
         else{
             valorfinal = valorprimer
         }
 
-        
-        console.log(valorprimer)
-        console.log(operadores)
-        console.log(valorfinal, 'aq')
-        conta=String(numeros[0])
+        conta = String(numeros[0])
     }
 
     text.value = conta
     ajustarFonte()
 }
+
 function ajustarFonte() {
     let tamanho = 3.5
 
