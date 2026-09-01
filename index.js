@@ -58,13 +58,36 @@ function clicar(event) {
             negativo = true
             conta = conta.slice(1)
         }
-        let cortes = conta.split(/[+\-*/]/)
-        console.log(cortes)
         let listconta = conta.split('')
-        let operadores = listconta.filter(function(letra) {
-        return '+-*/'.includes(letra)
+        let operadores = listconta.filter(function(letra, p) {
+        return '+-*/'.includes(letra) && listconta[p-1]!= '+' && listconta[p-1]!= '-' && listconta[p-1]!= '*' && listconta[p-1]!= '/'
 
         })
+        let cortes = []
+        let numeroAtual = ''
+
+        for (let i = 0; i < conta.length; i++) {
+            if('0123456789'.includes(conta[i])){
+                if(i+1 == conta.length){
+                numeroAtual+=conta[i]
+                cortes.push(numeroAtual)
+                numeroAtual=''
+                }   
+                else{
+                numeroAtual+=conta[i]
+                }
+            }   
+            else if('+-*/'.includes(conta[i]) && '+-*/'.includes(conta[i-1])){
+                numeroAtual+=conta[i]
+            }
+            else if ('+-*/'.includes(conta[i])){
+                cortes.push(numeroAtual)
+                numeroAtual=''
+            }
+            
+    
+        }   
+        console.log(cortes, 'aqui cara')
         console.log(operadores,'e, cima' )
         let numeros = cortes.map((numero)=>{
             
